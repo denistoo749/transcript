@@ -23,7 +23,7 @@ for j=1:length(units)
 end
 
 %print the table Result
-fprintf("STUDENT\'S DATA\n\n")
+fprintf("\t\tSTUDENT\'S DATA\n\n")
 % Get the size of the table
 [numRows, numCols] = size(result);
 
