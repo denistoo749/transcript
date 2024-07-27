@@ -2,8 +2,10 @@ warning('off','all')
 
 %Read data from excel
 result = readtable('MCS_3.1.xlsx');
-%studentinfo = table2array(result(:,[1,2]));
-studentinfo = table2array(readtable('MCS_3.1.xlsx','Range','A2:B169'));
+% Write the table to a CSV file
+writetable(result, 'MCS_3.1.csv');
+studentinfo = table2array(result(:,[1,2]));
+%studentinfo = table2array(readtable('MCS_3.1.xlsx','Range','A2:B169'));
 scores = table2array(readtable('MCS_3.1.xlsx','Range','C2:G169'));
 units = string(result.Properties.VariableNames(3:end));
     
@@ -21,13 +23,20 @@ for j=1:length(units)
 end
 
 %print the table Result
-fprintf('\n')
+fprintf("STUDENT\'S DATA\n\n")
 % Get the size of the table
 [numRows, numCols] = size(result);
 
-fprintf('%-20s', result.Properties.VariableNames{1});
-for j = 2:numCols
-    fprintf('%-30s', result.Properties.VariableNames{j});
+% Define the fixed width for columns
+columnWidth = 30;
+
+% Print the column headers with fixed width
+for j = 1:numCols
+    if j == 1
+        fprintf('%-20s', result.Properties.VariableNames{j}); % First column width
+    else
+        fprintf('%-30s', result.Properties.VariableNames{j}); % Subsequent columns width
+    end
 end
 fprintf('\n');
 
@@ -39,9 +48,9 @@ for i = 1:numRows
         
         % Print the element with fixed width
         if j == 1
-            fprintf('%-20s', string(element)); % First column
+            fprintf('%-20s', string(element)); % First column width
         else
-            fprintf('%-30s', string(element)); % Subsequent columns
+            fprintf('%-30s', string(element)); % Subsequent columns width
         end
     end
     fprintf('\n');
